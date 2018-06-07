@@ -188,7 +188,7 @@ public class EditItemActivity extends AppCompatActivity {
      * Checked = Available
      * Unchecked = Borrowed
      */
-    public void toggleSwitch(View view){
+            public void toggleSwitch(View view){
         if (status.isChecked()) {
             // Means was previously borrowed
             borrower.setVisibility(View.GONE);
