@@ -33,3 +33,7 @@ Style guidelines for UML class diagram
 * there should be few crossing edges
 * boxes should not overlap other boxes or edges
 * diagram should flow from top to bottom and left to right
+
+
+
+![_1211f406c8d68d201b106d7d9d7bf66f_uml-class-diagram-items-only](https://user-images.githubusercontent.com/6619191/41121707-8346d48c-6a99-11e8-8124-801aaa94d564.png)
