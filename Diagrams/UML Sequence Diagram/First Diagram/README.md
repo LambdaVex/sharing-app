@@ -5,3 +5,5 @@ The website will search the database and return the available flights to display
 Once the customer has chosen the flight, they will add the flight to their cart and checkout. 
 They will also then input their payment information and once everything is complete, the website should confirm the flight, empty cart and 
 lastly display a confirmation of the ticket for the flight.
+
+![tex](https://user-images.githubusercontent.com/6619191/41205217-6858fbf2-6cef-11e8-8ee2-89ae1051f8ab.png)
