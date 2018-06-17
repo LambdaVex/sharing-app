@@ -20,3 +20,5 @@ saveItems()
 Lastly, the activation of AddItemActivity should start with the call to “onCreate()”
 
 Hint: you may need to use nested activations.
+
+![_4617e93f6b8e26642ce6b5573e82eb49_uml-sequence-diag](https://user-images.githubusercontent.com/6619191/41510254-8af8ae4c-7261-11e8-8514-c2879958b3c5.png)
