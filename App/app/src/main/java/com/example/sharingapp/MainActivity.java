@@ -36,6 +36,23 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+// Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu. menu_main , menu); //Menu Resource, Menu
+        return true ;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id. contacts :
+                Intent intent = new Intent( this , ContactsActivity.class );
+                startActivity(intent);
+                return true ;
+            default :
+                return super .onOptionsItemSelected(item);
+        }
+    }
     public void addItemActivity(View view) {
         Intent intent = new Intent(this, AddItemActivity.class);
         startActivity(intent);

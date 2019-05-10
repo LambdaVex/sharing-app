@@ -15,6 +15,26 @@ public class Contact {
             updateId(id);
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!Contact.class.isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+
+        Contact c = (Contact) obj;
+
+        if(this.username == c.username && this.email == c.email && this.id == c.id ){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     public void setId() {
         this.id = UUID.randomUUID().toString();
     }

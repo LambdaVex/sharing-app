@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class ContactList {
 
     private ArrayList<Contact> contacts = new ArrayList<Contact>();
-    String FILENAME;
+    private String FILENAME= "contacts.sav";;
 
     public ContactList() {
 
@@ -32,9 +32,12 @@ public class ContactList {
         return contacts;
     }
 
-    /* TODO */
     public ArrayList<String> getAllUsernames() {
-        return new ArrayList<String>();
+        ArrayList<String> userNames = new ArrayList<String>();
+        for (Contact contact : contacts) {
+            userNames.add(contact.getUsername());
+        }
+        return userNames;
     }
 
     public void addContact(Contact contact){
@@ -65,7 +68,13 @@ public class ContactList {
     }
     /* TODO */
     public boolean hasContact(Contact contact){
-        return false;
+
+        /* The equals is overridden in the Contact.java to match the username, email and id. This can be changed according to the requirements */
+        if(contacts.contains(contact)){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     public Contact getContactByUsername(String username){
@@ -84,7 +93,7 @@ public class ContactList {
             FileInputStream fis = context.openFileInput(FILENAME);
             InputStreamReader isr = new InputStreamReader(fis);
             Gson gson = new Gson();
-            Type listType = new TypeToken<ArrayList<Item>>() {}.getType();
+            Type listType = new TypeToken<ArrayList<Contact>>() {}.getType();
             contacts = gson.fromJson(isr, listType); // temporary
             fis.close();
         } catch (FileNotFoundException e) {
@@ -115,7 +124,7 @@ public class ContactList {
                 return false;
             }
         }
-        /* not found */
+        /* not found, so available */
         return true;
     }
 }
