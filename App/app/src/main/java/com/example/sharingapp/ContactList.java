@@ -77,15 +77,15 @@ public class ContactList {
         }
     }
 
-    public Contact getContactByUsername(String username){
-
-        for (Contact contact : contacts) {
-            if (contact.getUsername().equals(username)) {
-                return contact;
-            }
-        }
-        return new Contact("","","");
-    }
+//    public Contact getContactByUsername(String username){
+//
+//        for (Contact contact : contacts) {
+//            if (contact.getUsername().equals(username)) {
+//                return contact;
+//            }
+//        }
+//        return new Contact("","","");
+//    }
 
     public void loadContacts(Context context) {
 
@@ -127,4 +127,14 @@ public class ContactList {
         /* not found, so available */
         return true;
     }
+
+    public Contact getContactByUsername(String username){
+        for (Contact c : contacts){
+            if (c.getUsername().equals(username)){
+                return c;
+            }
+        }
+        return null;
+    }
+
 }

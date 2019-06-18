@@ -1,5 +1,6 @@
 package com.example.sharingapp;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -27,11 +28,14 @@ public class AddItemActivity extends AppCompatActivity {
     private int REQUEST_CODE = 1;
 
     private ItemList item_list = new ItemList();
+    private ItemListController item_list_controller = new ItemListController(item_list);
+
     private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_add_item);
 
         title = (EditText) findViewById(R.id.title);
@@ -45,7 +49,7 @@ public class AddItemActivity extends AppCompatActivity {
         photo.setImageResource(android.R.drawable.ic_menu_gallery);
 
         context = getApplicationContext();
-        item_list.loadItems(context);
+        item_list_controller.loadItems(context);
     }
 
     public void saveItem (View view) {
@@ -87,11 +91,15 @@ public class AddItemActivity extends AppCompatActivity {
             return;
         }
 
-        Dimensions dimensions = new Dimensions(length_str, width_str, height_str);
-        Item item = new Item(title_str, maker_str, description_str, dimensions, image, null );
+        Item item = new Item(title_str, maker_str, description_str, image, null);
+        ItemController item_controller = new ItemController(item);
+        item_controller.setDimensions(length_str, width_str, height_str);
 
-        item_list.addItem(item);
-        item_list.saveItems(context);
+        // Add item
+        boolean success = item_list_controller.addItem(item, context);
+        if (!success) {
+            return;
+        }
 
         // End AddItemActivity
         Intent intent = new Intent(this, MainActivity.class);
