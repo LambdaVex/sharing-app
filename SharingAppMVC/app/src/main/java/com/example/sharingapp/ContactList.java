@@ -14,17 +14,20 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * ContactList Class
+ */
 public class ContactList extends Observable{
-    private ArrayList<Contact> contacts = new ArrayList<Contact>();
-    private String FILENAME= "contacts.sav";;
+
+    private static ArrayList<Contact> contacts;
+    private String FILENAME = "contacts.sav";
 
     public ContactList() {
-
         contacts = new ArrayList<Contact>();
     }
 
-    public void setContacts(ArrayList<Contact> contacts) {
-        this.contacts = contacts;
+    public void setContacts(ArrayList<Contact> contact_list) {
+        contacts = contact_list;
         notifyObservers();
     }
 
@@ -32,62 +35,33 @@ public class ContactList extends Observable{
         return contacts;
     }
 
-    public ArrayList<String> getAllUsernames() {
-        ArrayList<String> userNames = new ArrayList<String>();
-        for (Contact contact : contacts) {
-            userNames.add(contact.getUsername());
-        }
-        return userNames;
+    public ArrayList<String> getAllUsernames(){
+        ArrayList<String> username_list = new ArrayList<String>();
+        for (Contact c : contacts){
+            username_list.add(c.getUsername());
+            }
+        return username_list;
     }
 
-    public void addContact(Contact contact){
+    public void addContact(Contact contact) {
         contacts.add(contact);
+        notifyObservers();
     }
 
-    public void deleteContact(Contact contact){
+    public void deleteContact(Contact contact) {
         contacts.remove(contact);
         notifyObservers();
     }
 
-    public Contact getContact(int index){
+    public Contact getContact(int index) {
         return contacts.get(index);
     }
 
-    public int getSize(){
+    public int getSize() {
         return contacts.size();
     }
 
-    public int getIndex(Contact contact){
-        int pos = 0;
-        for (Contact i : contacts) {
-            if (contact.getId().equals(i.getId())) {
-                return pos;
-            }
-            pos = pos+1;
-        }
-        return -1;
-    }
-    /* TODO */
-    public boolean hasContact(Contact contact){
-
-        /* The equals is overridden in the Contact.java to match the username, email and id. This can be changed according to the requirements */
-        if(contacts.contains(contact)){
-            return true;
-        }else {
-            return false;
-        }
-    }
-
-//    public Contact getContactByUsername(String username){
-//
-//        for (Contact contact : contacts) {
-//            if (contact.getUsername().equals(username)) {
-//                return contact;
-//            }
-//        }
-//        return new Contact("","","");
-//    }
-    public Contact getContactByUsername(String username){
+    public Contact getUserByUsername(String username){
         for (Contact c : contacts){
             if (c.getUsername().equals(username)){
                 return c;
@@ -96,6 +70,34 @@ public class ContactList extends Observable{
         return null;
     }
 
+    public boolean hasContact(Contact contact) {
+        for (Contact c : contacts) {
+            if (contact.getId().equals(c.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getIndex(Contact contact) {
+        int pos = 0;
+        for (Contact c : contacts) {
+            if (contact.getId().equals(c.getId())) {
+                return pos;
+            }
+            pos = pos+1;
+        }
+        return -1;
+    }
+
+    public boolean isUsernameAvailable(String username){
+        for (Contact c : contacts) {
+            if (c.getUsername().equals(username)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public void loadContacts(Context context) {
 
@@ -114,7 +116,11 @@ public class ContactList extends Observable{
         notifyObservers();
     }
 
-    public void saveContacts(Context context) {
+    /**
+     * @param context
+     * @return true: if save is successful, false: if save is unsuccessful
+     */
+    public boolean saveContacts(Context context) {
         try {
             FileOutputStream fos = context.openFileOutput(FILENAME, 0);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
@@ -124,18 +130,21 @@ public class ContactList extends Observable{
             fos.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            return false;
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
-    }
-
-    public boolean isUsernameAvailable(String username){
-        for (Contact contact : contacts) {
-            if (contact.getUsername().equals(username)) {
-                return false;
-            }
-        }
-        /* not found, so available */
         return true;
     }
+
+    public Contact getContactByUsername(String username){
+        for (Contact c : contacts){
+            if (c.getUsername().equals(username)){
+                return c;
+            }
+        }
+        return null;
+    }
+
 }
